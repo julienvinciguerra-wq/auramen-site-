@@ -38,6 +38,63 @@
     setLink(el, url);
   });
 
+  /* ---------- Profilo Discord dinamico ---------- */
+  const discordApiUrl = cfg.DISCORD_PROFILE_API_URL;
+  const discordAvatar = $("[data-discord-avatar]");
+  const discordName = $("[data-discord-name]");
+  const discordDot = $("[data-discord-status-dot]");
+  const discordStatusText = $("[data-discord-status-text]");
+  const discordCustomStatus = $("[data-discord-custom-status]");
+  const discordStatusLabels = {
+    online: "Online",
+    idle: "Assente",
+    dnd: "Non disturbare",
+    offline: "Offline"
+  };
+
+  async function refreshDiscordProfile() {
+    if (!discordApiUrl || !discordAvatar || document.hidden) return;
+    try {
+      const response = await fetch(discordApiUrl.replace(/\\/$/, "") + "/api/discord-profile", {
+        method: "GET",
+        headers: { Accept: "application/json" },
+        cache: "no-store"
+      });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const profile = await response.json();
+
+      if (profile.avatarUrl && isHttp(profile.avatarUrl)) {
+        if (discordAvatar.src !== profile.avatarUrl) discordAvatar.src = profile.avatarUrl;
+      }
+      if (profile.displayName && discordName) discordName.textContent = profile.displayName;
+
+      const status = Object.prototype.hasOwnProperty.call(discordStatusLabels, profile.status)
+        ? profile.status : "offline";
+      if (discordDot) {
+        discordDot.className = "status-dot is-" + status;
+        discordDot.title = discordStatusLabels[status];
+      }
+      if (discordStatusText) discordStatusText.textContent = discordStatusLabels[status];
+
+      if (discordCustomStatus) {
+        const custom = typeof profile.customStatus === "string" ? profile.customStatus.trim() : "";
+        discordCustomStatus.textContent = custom;
+        discordCustomStatus.hidden = !custom;
+      }
+    } catch (error) {
+      if (discordStatusText) discordStatusText.textContent = "Stato Discord non raggiungibile";
+      console.warn("Profilo Discord non aggiornato:", error);
+    }
+  }
+
+  if (discordApiUrl) {
+    refreshDiscordProfile();
+    window.setInterval(refreshDiscordProfile, 30000);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) refreshDiscordProfile();
+    });
+  }
+
   const social = cfg.SOCIAL || {};
   $$("[data-social]").forEach((el) => {
     const s = social[el.dataset.social] || {};
