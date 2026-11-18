@@ -518,3 +518,31 @@ a.cat-item:hover { border-color: rgba(192,132,252,.6); transform: translateX(3px
   .resourcepack-actions { flex-direction: column; align-items: stretch; }
   .resourcepack-button, .resourcepack-pending { width: 100%; }
 }
+
+
+/* ---------- Profilo Discord dinamico ---------- */
+.status-dot { background: #747f8d; transition: background .2s ease, box-shadow .2s ease; }
+.status-dot.is-online { background: #23a55a; box-shadow: 0 0 12px rgba(35,165,90,.45); }
+.status-dot.is-idle { background: #f0b232; box-shadow: 0 0 12px rgba(240,178,50,.35); }
+.status-dot.is-dnd { background: #f23f43; box-shadow: 0 0 12px rgba(242,63,67,.35); }
+.status-dot.is-offline { background: #747f8d; }
+.discord-presence {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 8px;
+  color: var(--violet-300);
+  font-size: 12px;
+  font-weight: 800;
+}
+.discord-custom-status {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.discord-custom-status[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .status-dot { transition: none; }
+}
