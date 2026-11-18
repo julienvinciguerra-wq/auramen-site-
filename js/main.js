@@ -80,13 +80,51 @@
       if (items.length) {
         const list = document.createElement("div"); list.className = "cat-items";
         items.forEach((p) => {
-          const el = document.createElement(isHttp(p.url) ? "a" : "div");
-          el.className = "cat-item";
-          if (isHttp(p.url)) { el.href = p.url; el.target = "_blank"; el.rel = "noopener noreferrer"; }
-          const b = document.createElement("b"); b.textContent = p.title;
+          const el = document.createElement("article");
+          el.className = "cat-item cat-item-project";
+
+          const b = document.createElement("b");
+          b.textContent = p.title;
           if (p.tag) { const t = document.createElement("i"); t.textContent = p.tag; b.appendChild(t); }
           el.appendChild(b);
-          if (p.description) { const s = document.createElement("span"); s.textContent = p.description; el.appendChild(s); }
+
+          if (p.description) {
+            const description = document.createElement("span");
+            description.className = "cat-item-description";
+            description.textContent = p.description;
+            el.appendChild(description);
+          }
+
+          const actions = document.createElement("div");
+          actions.className = "cat-item-actions";
+
+          if (p.creator && isHttp(p.creatorUrl)) {
+            const creatorLink = document.createElement("a");
+            creatorLink.className = "cat-item-link cat-item-creator";
+            creatorLink.href = p.creatorUrl;
+            creatorLink.target = "_blank";
+            creatorLink.rel = "noopener noreferrer";
+            creatorLink.textContent = "Visita TikTok: @" + p.creator;
+            actions.appendChild(creatorLink);
+          }
+
+          const downloadUrl = isHttp(p.downloadUrl) ? p.downloadUrl : (isHttp(p.url) ? p.url : "");
+          if (downloadUrl) {
+            const downloadLink = document.createElement("a");
+            downloadLink.className = "cat-item-link cat-item-download";
+            downloadLink.href = downloadUrl;
+            downloadLink.target = "_blank";
+            downloadLink.rel = "noopener noreferrer";
+            downloadLink.textContent = "Scarica la pack";
+            actions.appendChild(downloadLink);
+          } else if (p.category === "resourcepacks") {
+            const pending = document.createElement("span");
+            pending.className = "cat-item-pending";
+            pending.textContent = "Download prossimamente";
+            actions.appendChild(pending);
+          }
+
+          if (actions.childElementCount) el.appendChild(actions);
           list.appendChild(el);
         });
         card.appendChild(list);
