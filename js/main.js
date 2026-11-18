@@ -101,37 +101,7 @@
   const serverName = $("[data-server-name]");
   const serverDescription = $("[data-server-description]");
   const serverMembers = $("[data-server-members]");
-  const serverChannels = $("[data-server-channels]");
-
-  function renderServerChannels(channels) {
-    if (!serverChannels) return;
-    serverChannels.replaceChildren();
-    if (!Array.isArray(channels) || !channels.length) {
-      serverChannels.textContent = "Nessun canale pubblico disponibile.";
-      return;
-    }
-
-    channels.forEach((channel) => {
-      if (!channel || typeof channel.name !== "string") return;
-      if (channel.type === "category") {
-        const category = document.createElement("span");
-        category.className = "server-channel-category";
-        category.textContent = channel.name;
-        serverChannels.appendChild(category);
-        return;
-      }
-
-      const link = document.createElement("a");
-      link.className = "server-channel-link";
-      link.textContent = (channel.type === "voice" || channel.type === "stage" ? "🔊 " : "# ") + channel.name;
-      if (isHttp(channel.url)) {
-        link.href = channel.url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-      }
-      serverChannels.appendChild(link);
-    });
-  }
+  const serverCounters = $("[data-server-counters]");
 
   async function refreshDiscordServer() {
     if (!discordApiUrl || !serverName || document.hidden) return;
@@ -166,7 +136,6 @@
           ? count.toLocaleString("it-IT") + " membri"
           : "";
       }
-      renderServerChannels(serverInfo.channels);
     } catch (error) {
       console.warn("Informazioni server Discord non aggiornate:", error);
       if (serverMembers && !serverMembers.textContent) serverMembers.textContent = "Dati server in caricamento";
@@ -178,6 +147,47 @@
     window.setInterval(refreshDiscordServer, 60000);
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) refreshDiscordServer();
+    });
+  }
+
+  async function refreshDiscordServerCounters() {
+    if (!discordApiUrl || !serverCounters || document.hidden) return;
+    try {
+      const response = await fetch(discordApiUrl.replace(/\/$/, "") + "/api/discord-servers", {
+        method: "GET",
+        headers: { Accept: "application/json" },
+        cache: "no-store"
+      });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const data = await response.json();
+      serverCounters.replaceChildren();
+      (Array.isArray(data.servers) ? data.servers : []).forEach((server) => {
+        if (!server || typeof server.name !== "string") return;
+        const item = document.createElement("div");
+        item.className = "server-counter-item";
+        const name = document.createElement("span");
+        name.className = "server-counter-name";
+        name.textContent = server.name;
+        const count = document.createElement("strong");
+        count.className = "server-counter-value";
+        const members = Number(server.memberCount);
+        count.textContent = Number.isFinite(members) && members >= 0
+          ? members.toLocaleString("it-IT") + " membri"
+          : "Conteggio non disponibile";
+        item.append(name, count);
+        serverCounters.appendChild(item);
+      });
+      serverCounters.hidden = !serverCounters.childElementCount;
+    } catch (error) {
+      console.warn("Contatori membri Discord non aggiornati:", error);
+    }
+  }
+
+  if (discordApiUrl && serverCounters) {
+    refreshDiscordServerCounters();
+    window.setInterval(refreshDiscordServerCounters, 60000);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) refreshDiscordServerCounters();
     });
   }
 
