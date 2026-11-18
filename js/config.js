@@ -60,6 +60,23 @@ window.AURAMEN_CONFIG = {
        { category: 'resourcepacks', title: 'Nome pack', description: 'Breve descrizione', url: 'https://…', tag: '1.21' }
      --------------------------------------------------------------------------- */
   PROJECTS: [
-    // (nessun progetto inserito: aggiungili qui)
+    {
+      category: 'resourcepacks',
+      title: 'Texture Pack — itzcp',
+      description: 'Texture pack realizzata per il content creator TikTok itzcp.',
+      tag: 'Creator pack',
+      creator: 'itzcp',
+      creatorUrl: 'https://www.tiktok.com/@itzcp3',
+      downloadUrl: ''
+    },
+    {
+      category: 'resourcepacks',
+      title: 'Texture Pack — IlN3roneTattico',
+      description: 'Texture pack realizzata per il content creator TikTok IlN3roneTattico.',
+      tag: 'Creator pack',
+      creator: 'IlN3roneTattico',
+      creatorUrl: 'https://www.tiktok.com/@iln3ronetattico',
+      downloadUrl: 'https://rekonise.com/iln3ronetattico-pack-12111-d9mee'
+    }
   ]
 };
