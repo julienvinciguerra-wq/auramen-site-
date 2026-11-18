@@ -383,3 +383,58 @@ a.cat-item:hover { border-color: rgba(192,132,252,.6); transform: translateX(3px
   .reveal { opacity: 1; transform: none; transition: none; }
   .nav-links a { transition: none; transform: none; }
 }
+
+
+/* ---------- Resource pack creator cards ---------- */
+.cat-item-project {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.cat-item-description {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.cat-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.cat-item-link,
+.cat-item-pending {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 7px 11px;
+  border: 1px solid rgba(192,132,252,.30);
+  border-radius: 9px;
+  background: rgba(168,85,247,.12);
+  color: var(--violet-300);
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.cat-item-link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(192,132,252,.75);
+  background: rgba(168,85,247,.22);
+}
+.cat-item-download {
+  background: rgba(168,85,247,.24);
+  color: var(--text);
+}
+.cat-item-pending {
+  border-style: dashed;
+  color: var(--muted);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cat-item-link { transition: none; }
+  .cat-item-link:hover { transform: none; }
+}
