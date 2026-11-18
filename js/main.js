@@ -95,6 +95,92 @@
     });
   }
 
+  /* ---------- Informazioni pubbliche del server Discord ---------- */
+  const serverIcon = $("[data-server-icon]");
+  const serverBanner = $("[data-server-banner]");
+  const serverName = $("[data-server-name]");
+  const serverDescription = $("[data-server-description]");
+  const serverMembers = $("[data-server-members]");
+  const serverChannels = $("[data-server-channels]");
+
+  function renderServerChannels(channels) {
+    if (!serverChannels) return;
+    serverChannels.replaceChildren();
+    if (!Array.isArray(channels) || !channels.length) {
+      serverChannels.textContent = "Nessun canale pubblico disponibile.";
+      return;
+    }
+
+    channels.forEach((channel) => {
+      if (!channel || typeof channel.name !== "string") return;
+      if (channel.type === "category") {
+        const category = document.createElement("span");
+        category.className = "server-channel-category";
+        category.textContent = channel.name;
+        serverChannels.appendChild(category);
+        return;
+      }
+
+      const link = document.createElement("a");
+      link.className = "server-channel-link";
+      link.textContent = (channel.type === "voice" || channel.type === "stage" ? "🔊 " : "# ") + channel.name;
+      if (isHttp(channel.url)) {
+        link.href = channel.url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      }
+      serverChannels.appendChild(link);
+    });
+  }
+
+  async function refreshDiscordServer() {
+    if (!discordApiUrl || !serverName || document.hidden) return;
+    try {
+      const response = await fetch(discordApiUrl.replace(/\/$/, "") + "/api/discord-server", {
+        method: "GET",
+        headers: { Accept: "application/json" },
+        cache: "no-store"
+      });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const serverInfo = await response.json();
+
+      if (serverInfo.name) serverName.textContent = serverInfo.name;
+      if (serverDescription) {
+        serverDescription.textContent = serverInfo.description || "Community ufficiale Discord";
+      }
+      if (serverIcon && isHttp(serverInfo.iconUrl) && serverIcon.src !== serverInfo.iconUrl) {
+        serverIcon.src = serverInfo.iconUrl;
+      }
+      if (serverBanner) {
+        if (isHttp(serverInfo.bannerUrl)) {
+          serverBanner.src = serverInfo.bannerUrl;
+          serverBanner.hidden = false;
+        } else {
+          serverBanner.removeAttribute("src");
+          serverBanner.hidden = true;
+        }
+      }
+      if (serverMembers) {
+        const count = Number(serverInfo.memberCount);
+        serverMembers.textContent = Number.isFinite(count) && count >= 0
+          ? count.toLocaleString("it-IT") + " membri"
+          : "";
+      }
+      renderServerChannels(serverInfo.channels);
+    } catch (error) {
+      console.warn("Informazioni server Discord non aggiornate:", error);
+      if (serverMembers && !serverMembers.textContent) serverMembers.textContent = "Dati server in caricamento";
+    }
+  }
+
+  if (discordApiUrl && serverName) {
+    refreshDiscordServer();
+    window.setInterval(refreshDiscordServer, 60000);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) refreshDiscordServer();
+    });
+  }
+
   const social = cfg.SOCIAL || {};
   $$("[data-social]").forEach((el) => {
     const s = social[el.dataset.social] || {};
