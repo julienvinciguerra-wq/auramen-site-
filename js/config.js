@@ -32,8 +32,8 @@ window.AURAMEN_CONFIG = {
 
   /* --- Community (link di invito: da inserire) ------------------------------ */
   COMMUNITIES: {
-    carpyy: '',   // invito al server Carpyy
-    barcone: ''   // invito al server Barcone di Dom1nck
+    carpyy: 'https://discord.gg/carpyy',   // invito al server Carpyy
+    barcone: 'https://discord.gg/syz4cqawZ'   // invito al server Barcone di Dom1nck
   },
 
   /* --- Social ------------------------------------------------------------- */
