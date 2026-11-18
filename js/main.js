@@ -60,79 +60,100 @@
   });
 
   /* ---------- Progetti Minecraft ---------- */
-  const CATS = [
-    { id: "projects", title: "Progetti personali", desc: "Mappe, build e idee su cui sto lavorando.", icon: '<path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M3 7l9 5 9-5"/>' },
-    { id: "resourcepacks", title: "Resource pack", desc: "Texture e pack creati o personalizzati.", icon: '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/>' },
-    { id: "configs", title: "Configurazioni", desc: "Impostazioni, keybind e setup consigliati.", icon: '<circle cx="12" cy="12" r="3"/><path d="M19.400 15a1.700 1.700 0 00.3 1.800l.1.100a2 2 0 11-2.800 2.800l-.1-.1a1.700 1.700 0 00-1.800-.3 1.700 1.700 0 00-1 1.500V21a2 2 0 11-4 0v-.1a1.700 1.700 0 00-1.100-1.500 1.700 1.700 0 00-1.800.3l-.1.100a2 2 0 11-2.800-2.800l.1-.1a1.700 1.700 0 00.3-1.800 1.700 1.700 0 00-1.500-1H3a2 2 0 110-4h.1a1.700 1.700 0 001.500-1.100 1.700 1.700 0 00-.3-1.800l-.1-.1a2 2 0 112.800-2.800l.1.100a1.700 1.700 0 001.800.3H9a1.700 1.700 0 001-1.500V3a2 2 0 114 0v.1a1.700 1.700 0 001 1.500 1.700 1.700 0 001.800-.3l.1-.1a2 2 0 112.800 2.800l-.1.100a1.700 1.700 0 00-.3 1.800V9a1.700 1.700 0 001.500 1H21a2 2 0 110 4h-.1a1.700 1.700 0 00-1.500 1z"/>' },
-    { id: "community", title: "Community", desc: "Server e community Minecraft che frequento.", icon: '<circle cx="9" cy="8" r="3.500"/><path d="M2 20c0-3.500 3-6 7-6s7 2.500 7 6"/><path d="M17 11a3 3 0 100-6M22 20c0-2.500-1.500-4.500-4-5.500"/>' },
-    { id: "content", title: "Contenuti Minecraft", desc: "Video, live e clip a tema Minecraft.", icon: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.500l5 2.500-5 2.500z"/>' }
-  ];
+  /* ---------- Resource pack Minecraft ---------- */
   const mcCats = $("#mcCats");
   if (mcCats) {
-    const projects = Array.isArray(cfg.PROJECTS) ? cfg.PROJECTS : [];
-    CATS.forEach((cat, i) => {
-      const items = projects.filter((p) => p && p.category === cat.id && p.title);
+    const packs = (Array.isArray(cfg.PROJECTS) ? cfg.PROJECTS : [])
+      .filter((p) => p && p.category === "resourcepacks" && p.title);
+
+    mcCats.classList.add("resourcepack-grid");
+    if (!packs.length) {
+      const empty = document.createElement("div");
+      empty.className = "cat-empty";
+      empty.textContent = "Resource pack in arrivo";
+      mcCats.appendChild(empty);
+    }
+
+    packs.forEach((p, i) => {
       const card = document.createElement("article");
-      card.className = "cat-card glass reveal"; card.style.setProperty("--d", i * 60 + "ms");
-      card.innerHTML = `<span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${cat.icon}</svg></span><h3></h3><p class="cat-desc"></p>`;
-      card.querySelector("h3").textContent = cat.title;
-      card.querySelector(".cat-desc").textContent = cat.desc;
-      if (items.length) {
-        const list = document.createElement("div"); list.className = "cat-items";
-        items.forEach((p) => {
-          const el = document.createElement("article");
-          el.className = "cat-item cat-item-project";
+      card.className = "resourcepack-card glass reveal";
+      card.style.setProperty("--d", (i * 90) + "ms");
 
-          const b = document.createElement("b");
-          b.textContent = p.title;
-          if (p.tag) { const t = document.createElement("i"); t.textContent = p.tag; b.appendChild(t); }
-          el.appendChild(b);
+      const head = document.createElement("div");
+      head.className = "resourcepack-head";
 
-          if (p.description) {
-            const description = document.createElement("span");
-            description.className = "cat-item-description";
-            description.textContent = p.description;
-            el.appendChild(description);
-          }
-
-          const actions = document.createElement("div");
-          actions.className = "cat-item-actions";
-
-          if (p.creator && isHttp(p.creatorUrl)) {
-            const creatorLink = document.createElement("a");
-            creatorLink.className = "cat-item-link cat-item-creator";
-            creatorLink.href = p.creatorUrl;
-            creatorLink.target = "_blank";
-            creatorLink.rel = "noopener noreferrer";
-            creatorLink.textContent = "Visita TikTok: @" + p.creator;
-            actions.appendChild(creatorLink);
-          }
-
-          const downloadUrl = isHttp(p.downloadUrl) ? p.downloadUrl : (isHttp(p.url) ? p.url : "");
-          if (downloadUrl) {
-            const downloadLink = document.createElement("a");
-            downloadLink.className = "cat-item-link cat-item-download";
-            downloadLink.href = downloadUrl;
-            downloadLink.target = "_blank";
-            downloadLink.rel = "noopener noreferrer";
-            downloadLink.textContent = "Scarica la pack";
-            actions.appendChild(downloadLink);
-          } else if (p.category === "resourcepacks") {
-            const pending = document.createElement("span");
-            pending.className = "cat-item-pending";
-            pending.textContent = "Download prossimamente";
-            actions.appendChild(pending);
-          }
-
-          if (actions.childElementCount) el.appendChild(actions);
-          list.appendChild(el);
-        });
-        card.appendChild(list);
-      } else {
-        const e = document.createElement("div"); e.className = "cat-empty"; e.textContent = "In arrivo"; card.appendChild(e);
+      if (p.creatorImage) {
+        const logo = document.createElement("img");
+        logo.className = "resourcepack-creator-logo";
+        logo.src = p.creatorImage;
+        logo.alt = "Logo profilo " + (p.creator || "creator");
+        logo.loading = "lazy";
+        logo.onerror = () => { logo.hidden = true; };
+        head.appendChild(logo);
       }
+
+      const titleWrap = document.createElement("div");
+      titleWrap.className = "resourcepack-title-wrap";
+      const title = document.createElement("h3");
+      title.textContent = p.title;
+      titleWrap.appendChild(title);
+      if (p.tag) {
+        const tag = document.createElement("span");
+        tag.className = "resourcepack-tag";
+        tag.textContent = p.tag;
+        titleWrap.appendChild(tag);
+      }
+      head.appendChild(titleWrap);
+      card.appendChild(head);
+
+      if (p.description) {
+        const description = document.createElement("p");
+        description.className = "resourcepack-description";
+        description.textContent = p.description;
+        card.appendChild(description);
+      }
+
+      const actions = document.createElement("div");
+      actions.className = "resourcepack-actions";
+
+      if (p.creator && isHttp(p.creatorUrl)) {
+        const creatorLink = document.createElement("a");
+        creatorLink.className = "resourcepack-button resourcepack-profile";
+        creatorLink.href = p.creatorUrl;
+        creatorLink.target = "_blank";
+        creatorLink.rel = "noopener noreferrer";
+        creatorLink.textContent = "Visita TikTok di " + p.creator;
+        actions.appendChild(creatorLink);
+      }
+
+      const downloadUrl = isHttp(p.downloadUrl) ? p.downloadUrl : (isHttp(p.url) ? p.url : "");
+      if (downloadUrl) {
+        const downloadLink = document.createElement("a");
+        downloadLink.className = "resourcepack-button resourcepack-download";
+        downloadLink.href = downloadUrl;
+        downloadLink.target = "_blank";
+        downloadLink.rel = "noopener noreferrer";
+        downloadLink.textContent = "Scarica la resource pack";
+        actions.appendChild(downloadLink);
+      } else {
+        const pending = document.createElement("span");
+        pending.className = "resourcepack-pending";
+        pending.textContent = "Download prossimamente";
+        actions.appendChild(pending);
+      }
+
+      card.appendChild(actions);
       mcCats.appendChild(card);
     });
+
+    if ("IntersectionObserver" in window && !reduceMotion) {
+      const packReveal = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => entry.target.classList.toggle("in", entry.isIntersecting));
+      }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+      $$(".resourcepack-card.reveal", mcCats).forEach((el) => packReveal.observe(el));
+    } else {
+      $$(".resourcepack-card.reveal", mcCats).forEach((el) => el.classList.add("in"));
+    }
   }
 
   const nickBtn = $("#copyNick");
