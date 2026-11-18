@@ -196,13 +196,16 @@
             </div>
             <a class="btn btn-primary" data-link="community.barcone" href="#" target="_blank" rel="noopener noreferrer">Entra nel server</a>
           </article>
-          <article class="community-card glass reveal tilt" style="--d:200ms">
-            <div class="community-logo"><img src="assets/avatar.png" alt="Logo AURAMEN" width="72" height="72" loading="lazy"></div>
+          <article class="community-card glass reveal tilt auramen-server-card" style="--d:200ms">
+            <img class="server-banner" data-server-banner alt="" hidden>
+            <div class="community-logo"><img data-server-icon src="assets/avatar.png" alt="Icona server Discord AURAMEN" width="72" height="72" loading="lazy"></div>
             <div class="community-meta">
               <span class="badge">Founder</span>
-              <h3>AURAMEN Community</h3>
-              <p>La mia community ufficiale Discord</p>
+              <h3 data-server-name>AURAMEN Community</h3>
+              <p data-server-description>La mia community ufficiale Discord</p>
+              <p class="server-member-count" data-server-members></p>
             </div>
+            <div class="server-channel-list" data-server-channels aria-live="polite"></div>
             <a class="btn btn-primary" data-link="community.auramen" href="#" target="_blank" rel="noopener noreferrer">Entra nel server</a>
           </article>
         </div>
