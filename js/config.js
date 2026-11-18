@@ -17,7 +17,7 @@ window.AURAMEN_CONFIG = {
   DISCORD_SERVER_URL: 'https://discord.gg/vV7pWrFhv',
 
   // Da compilare dopo aver pubblicato il backend Discord con HTTPS.
-  DISCORD_PROFILE_API_URL: 'https://auramen-bot-discord.onrender.com/api/discord-profile',
+  DISCORD_PROFILE_API_URL: 'https://auramen-bot-discord.onrender.com',
 
   DISCORD_TICKET_URL: '',
   DISCORD_TICKET_CHANNEL_NAME: '#ticket',
