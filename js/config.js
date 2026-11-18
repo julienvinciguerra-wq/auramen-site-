@@ -66,7 +66,7 @@ window.AURAMEN_CONFIG = {
       description: 'Texture pack realizzata per il content creator TikTok itzcp.',
       tag: 'Creator pack',
       creator: 'itzcp',
-      creatorImage: 'assets/logos/itzcp.png',
+      creatorImage: 'assets/logos/itzcp.jpeg',
       creatorUrl: 'https://www.tiktok.com/@itzcp3',
       downloadUrl: ''
     },
@@ -76,7 +76,7 @@ window.AURAMEN_CONFIG = {
       description: 'Texture pack realizzata per il content creator TikTok IlN3roneTattico.',
       tag: 'Creator pack',
       creator: 'IlN3roneTattico',
-      creatorImage: 'assets/logos/iln3ronetattico.png',
+      creatorImage: 'assets/logos/iln3ronetattico.jpeg',
       creatorUrl: 'https://www.tiktok.com/@iln3ronetattico',
       downloadUrl: 'https://rekonise.com/iln3ronetattico-pack-12111-d9mee'
     }
