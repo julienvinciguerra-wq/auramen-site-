@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#07040d">
+  <meta name="description" content="AURAMEN UNIVERSE — portfolio di auramen_: Minecraft Creator, sviluppatore e appassionato di tecnologia. Community, social, servizi e contatti via ticket Discord.">
+  <meta property="og:title" content="AURAMEN_ — Minecraft Creator">
+  <meta property="og:description" content="Portfolio di auramen_: Minecraft, community, social e servizi.">
+  <meta property="og:type" content="website">
+  <title>AURAMEN_ — Minecraft Creator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+
+  <!-- SCHERMATA INIZIALE (mantenuta dal sito originale) -->
+  <div id="enterOverlay" class="enter-overlay" role="button" tabindex="0" aria-label="Entra nel sito">
+    <div class="enter-circle"></div>
+    <div class="enter-title">click to enter...</div>
+    <div class="enter-sub"><span aria-hidden="true">🔊</span> audio attivo</div>
+  </div>
+
+  <!-- VOLUME -->
+  <div class="volume-container">
+    <button id="volumeToggleBtn" class="volume-toggle-btn" type="button" aria-label="Controlli audio">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+    </button>
+    <div id="volumeWidget" class="volume-widget">
+      <span class="volume-label">VOLUME</span>
+      <div class="volume-slider-wrap">
+        <input type="range" id="volumeRange" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+      </div>
+    </div>
+  </div>
+
+  <!-- SFONDO VIDEO (mantenuto) -->
+  <video id="bgVideo" class="video-bg loading" autoplay muted playsinline loop preload="auto" poster="assets/videos/new-video-poster.jpg" aria-hidden="true">
+    <source src="assets/videos/new-video.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <header class="nav" id="nav">
+    <div class="nav-inner glass">
+      <a class="brand" href="#home" aria-label="AURAMEN_ — Home">AURAMEN<span>_</span></a>
+      <nav class="nav-links" id="navLinks" aria-label="Navigazione principale">
+        <a href="#home" data-nav="home">Home</a>
+        <a href="#chi-sono" data-nav="chi-sono">Chi sono</a>
+        <a href="#community" data-nav="community">Community</a>
+        <a href="#minecraft" data-nav="minecraft">Minecraft</a>
+        <a href="#social" data-nav="social">Social</a>
+        <a href="#servizi" data-nav="servizi">Servizi</a>
+        <a href="#contatti" data-nav="contatti">Contatti</a>
+      </nav>
+      <a class="btn btn-primary btn-sm nav-cta" href="#contatti">Contattami</a>
+      <button class="nav-burger" id="navBurger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="home" data-section>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="pill"><i class="pill-dot"></i> MINECRAFT CREATOR</span>
+          <h1 class="hero-title">AURAMEN<span class="u">_</span></h1>
+          <p class="hero-tag">nel chilling</p>
+          <p class="hero-lead">Creator Minecraft, sviluppatore e appassionato di tecnologia. Benvenuto nel mio universo: community, progetti, social e servizi in un unico posto.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contatti">Contattami <svg class="arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-ghost" href="#minecraft">Scopri Minecraft</a>
+          </div>
+          <ul class="hero-social" aria-label="Collegamenti social">
+            <li><a class="icon-btn" data-social="twitch" href="https://www.twitch.tv/juliettamos" target="_blank" rel="noopener noreferrer" aria-label="Twitch"><svg viewBox="0 0 24 24" aria-hidden="true"><path data-icon="twitch"/></svg></a></li>
+            <li><a class="icon-btn" data-social="tiktok" href="https://www.tiktok.com/@auramen07" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path data-icon="tiktok"/></svg></a></li>
+            <li><a class="icon-btn" data-social="youtube" href="https://www.youtube.com/channel/UCQZZ5nB-KXesk0EzXOSZacA" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path data-icon="youtube"/></svg></a></li>
+            <li><a class="icon-btn" data-social="github" href="https://github.com/julienvinciguerra-wq" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path data-icon="github"/></svg></a></li>
+            <li><a class="icon-btn" data-social="discord" href="https://discord.gg/8SNb5z3z5" target="_blank" rel="noopener noreferrer" aria-label="Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path data-icon="discord"/></svg></a></li>
+          </ul>
+        </div>
+
+        <div class="hero-stage reveal" style="--d:120ms">
+          <div class="stage-glow" aria-hidden="true"></div>
+          <div class="skin-card glass" data-skin-viewer data-zoom="0.75">
+            <canvas aria-label="Skin Minecraft 3D di auramen_: trascina per ruotare" role="img"></canvas>
+            <div class="skin-fallback" hidden>
+              <img src="assets/avatar.png?v=3" alt="Avatar di auramen_" width="160" height="247" loading="lazy">
+              <p>Anteprima 3D non disponibile su questo dispositivo.</p>
+            </div>
+            <span class="skin-badge" hidden>Skin non ancora caricata</span>
+            <span class="skin-nick">auramen_</span>
+            <span class="skin-hint" aria-hidden="true">trascina per ruotare</span>
+          </div>
+          <div class="stage-ring" aria-hidden="true"></div>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#chi-sono" aria-label="Scorri verso il basso"><span></span></a>
+    </section>
+
+    <!-- ===================== CHI SONO ===================== -->
+    <section class="section" id="chi-sono" data-section>
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow">Chi sono</span>
+          <h2>Il mio profilo</h2>
+          <p>Creator, sviluppatore e appassionato di tecnologia: ecco dove mi trovi e cosa faccio.</p>
+        </header>
+
+        <div class="about-grid">
+          <article class="profile-card glass reveal tilt">
+            <div class="profile-banner" aria-hidden="true"></div>
+            <div class="profile-body">
+              <div class="avatar-wrap">
+                <img class="avatar" src="assets/avatar.png?v=3" alt="Avatar di auramen_" width="96" height="96">
+                <span class="status-dot" title="Online"></span>
+              </div>
+              <h3 class="profile-name">auramen_</h3>
+              <p class="profile-sub">nel chilling</p>
+              <hr class="profile-sep">
+              <h4 class="profile-label">BIO</h4>
+              <ul class="role-list">
+                <li class="role-row">
+                  <span class="role-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.4 6.8 19.200l1-5.900L3.500 9.200l5.900-.8z"/></svg>
+                  </span>
+                  <p class="role-text">Trainee su Carpyy | Famiglia Croccante</p>
+                </li>
+                <li class="role-row">
+                  <span class="role-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.500-3 8-7 10-4-2-7-5.500-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                  </span>
+                  <p class="role-text">Helper su Barcone di Dom1nck</p>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <div class="about-side">
+            <article class="card glass reveal" style="--d:80ms">
+              <h3>Chi sono</h3>
+              <p>Sono <strong>auramen_</strong>: creo contenuti Minecraft, sviluppo progetti e seguo da vicino tutto ciò che riguarda la tecnologia. Mi trovi su Twitch, TikTok, YouTube e GitHub, e collaboro con le community di cui faccio parte come Trainee e come Helper.</p>
+              <ul class="chips">
+                <li class="chip">Minecraft Creator</li>
+                <li class="chip">Sviluppo</li>
+                <li class="chip">Tecnologia</li>
+                <li class="chip">Community</li>
+              </ul>
+            </article>
+            <article class="card glass reveal" style="--d:160ms">
+              <h3>Il mio setup</h3>
+              <p>Curioso di sapere con cosa lavoro? Dai un'occhiata al mio PC e alle mie periferiche.</p>
+              <div class="btn-row">
+                <button class="btn btn-ghost" type="button" data-open-modal="pcModal" aria-haspopup="dialog">Che PC ho?</button>
+                <button class="btn btn-ghost" type="button" data-open-modal="gearModal" aria-haspopup="dialog">Periferiche</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COMMUNITY ===================== -->
+    <section class="section" id="community" data-section>
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow">Community</span>
+          <h2>Le mie community</h2>
+          <p>Le community Discord di cui faccio parte e in cui do una mano.</p>
+        </header>
+        <div class="grid-2">
+          <article class="community-card glass reveal tilt">
+            <div class="community-logo"><img src="assets/logos/carpyy.png" onerror="this.onerror=null;this.src='assets/logos/carpyy.svg'" alt="Logo Carpyy" width="72" height="72" loading="lazy"></div>
+            <div class="community-meta">
+              <span class="badge">Trainee</span>
+              <h3>Carpyy</h3>
+              <p>Community Minecraft</p>
+            </div>
+            <a class="btn btn-primary" data-link="community.carpyy" href="#" target="_blank" rel="noopener noreferrer">Entra nel server</a>
+          </article>
+          <article class="community-card glass reveal tilt" style="--d:100ms">
+            <div class="community-logo"><img src="assets/logos/barcone.png" onerror="this.onerror=null;this.src='assets/logos/barcone.svg'" alt="Logo Barcone di Dom1nck" width="72" height="72" loading="lazy"></div>
+            <div class="community-meta">
+              <span class="badge">Helper</span>
+              <h3>Barcone di Dom1nck</h3>
+              <p>Community</p>
+            </div>
+            <a class="btn btn-primary" data-link="community.barcone" href="#" target="_blank" rel="noopener noreferrer">Entra nel server</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MINECRAFT ===================== -->
+    <section class="section" id="minecraft" data-section>
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow">Minecraft</span>
+          <h2>Il mio mondo Minecraft</h2>
+          <p>Nickname <strong>auramen_</strong> — skin, progetti, resource pack, configurazioni e contenuti.</p>
+        </header>
+        <div class="mc-grid">
+          <article class="mc-skin glass reveal">
+            <div class="skin-card skin-card-sm" data-skin-viewer data-zoom="0.7">
+              <canvas aria-label="Skin Minecraft 3D di auramen_" role="img"></canvas>
+              <div class="skin-fallback" hidden>
+                <img src="assets/avatar.png?v=3" alt="Avatar di auramen_" width="120" height="185" loading="lazy">
+                <p>Anteprima 3D non disponibile.</p>
+              </div>
+              <span class="skin-badge" hidden>Skin non ancora caricata</span>
+            </div>
+            <div class="mc-nick">
+              <span class="label">Nickname</span>
+              <button class="copy" type="button" id="copyNick" aria-label="Copia il nickname auramen_"><code>auramen_</code><span class="copy-state">Copia</span></button>
+            </div>
+          </article>
+          <div class="mc-cats" id="mcCats" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SOCIAL ===================== -->
+    <section class="section" id="social" data-section>
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow">Social</span>
+          <h2>Seguimi ovunque</h2>
+          <p>Live, video, codice e community: scegli la piattaforma che preferisci.</p>
+        </header>
+        <div class="social-grid">
+          <article class="social-card glass reveal tilt" style="--brand:#9146ff">
+            <span class="social-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path data-icon="twitch"/></svg></span>
+            <h3>Twitch</h3>
+            <p class="social-user" data-user="twitch">juliettamos</p>
+            <p class="social-desc">Live e contenuti in diretta.</p>
+            <a class="btn btn-ghost btn-block" data-social="twitch" href="https://www.twitch.tv/juliettamos" target="_blank" rel="noopener noreferrer">Visita il profilo</a>
+          </article>
+          <article class="social-card glass reveal tilt" style="--brand:#25f4ee;--d:60ms">
+            <span class="social-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path data-icon="tiktok"/></svg></span>
+            <h3>TikTok</h3>
+            <p class="social-user" data-user="tiktok">@auramen07</p>
+            <p class="social-desc">Clip e video brevi.</p>
+            <a class="btn btn-ghost btn-block" data-social="tiktok" href="https://www.tiktok.com/@auramen07" target="_blank" rel="noopener noreferrer">Visita il profilo</a>
+          </article>
+          <article class="social-card glass reveal tilt" style="--brand:#ff2d2d;--d:120ms">
+            <span class="social-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path data-icon="youtube"/></svg></span>
+            <h3>YouTube</h3>
+            <p class="social-user" data-user="youtube">Canale ufficiale</p>
+            <p class="social-desc">Video e contenuti sul canale.</p>
+            <a class="btn btn-ghost btn-block" data-social="youtube" href="https://www.youtube.com/channel/UCQZZ5nB-KXesk0EzXOSZacA" target="_blank" rel="noopener noreferrer">Visita il profilo</a>
+          </article>
+          <article class="social-card glass reveal tilt" style="--brand:#e6edf3;--d:180ms">
+            <span class="social-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path data-icon="github"/></svg></span>
+            <h3>GitHub</h3>
+            <p class="social-user" data-user="github">julienvinciguerra-wq</p>
+            <p class="social-desc">Codice e progetti di sviluppo.</p>
+            <a class="btn btn-ghost btn-block" data-social="github" href="https://github.com/julienvinciguerra-wq" target="_blank" rel="noopener noreferrer">Visita il profilo</a>
+          </article>
+          <article class="social-card glass reveal tilt" style="--brand:#5865f2;--d:240ms">
+            <span class="social-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path data-icon="discord"/></svg></span>
+            <h3>Discord</h3>
+            <p class="social-user" data-user="discord">auramen_'s Swamp</p>
+            <p class="social-desc">Il mio server: community e ticket.</p>
+            <a class="btn btn-ghost btn-block" data-social="discord" href="https://discord.gg/8SNb5z3z5" target="_blank" rel="noopener noreferrer">Visita il profilo</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SERVIZI ===================== -->
+    <section class="section" id="servizi" data-section>
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow">Servizi</span>
+          <h2>AURAMEN PC OPTIMIZATION</h2>
+          <p>Assistenza e ottimizzazione PC, su misura per il tuo hardware.</p>
+        </header>
+        <article class="service-card glass reveal">
+          <div class="service-main">
+            <div class="service-top">
+              <h3>AURAMEN PC OPTIMIZATION</h3>
+              <div class="price" aria-label="Prezzo indicativo 5 euro"><strong>5&nbsp;€</strong><small>prezzo indicativo</small></div>
+            </div>
+            <p class="service-desc">Vuoi migliorare l'esperienza di utilizzo del tuo PC? Posso aiutarti ad analizzare la tua configurazione e individuare possibili ottimizzazioni adatte al tuo hardware.</p>
+            <ul class="check-list">
+              <li>Analisi hardware</li>
+              <li>Analisi delle prestazioni</li>
+              <li>Ottimizzazione delle impostazioni Windows</li>
+              <li>Configurazione delle impostazioni di gioco</li>
+              <li>Consigli per ridurre problemi di prestazioni e latenza</li>
+              <li>Configurazione OBS</li>
+            </ul>
+            <div class="btn-row">
+              <a class="btn btn-primary" data-ticket href="#contatti">Richiedi ottimizzazione</a>
+              <a class="btn btn-ghost" href="#contatti">Contattami</a>
+            </div>
+          </div>
+          <aside class="service-side">
+            <h4>Modalità di pagamento</h4>
+            <p class="muted-sm">Da concordare nel ticket. Questo sito non raccoglie dati finanziari e non elabora pagamenti.</p>
+            <div class="pay-list">
+              <a class="pay" data-link="payments.paypal" href="#" target="_blank" rel="noopener noreferrer"><span>PayPal</span></a>
+              <a class="pay" data-link="payments.amazonGiftCard" href="#" target="_blank" rel="noopener noreferrer"><span>Amazon Gift Card</span></a>
+            </div>
+            <ul class="notes">
+              <li>La gestione commerciale va autorizzata e seguita con il supporto di un genitore o tutore.</li>
+              <li>I risultati dipendono dall'hardware: nessun aumento di FPS è garantito.</li>
+            </ul>
+          </aside>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== CONTATTI ===================== -->
+    <section class="section" id="contatti" data-section>
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow">Contatti</span>
+          <h2>CONTATTAMI</h2>
+        </header>
+        <article class="contact-card glass reveal">
+          <div class="contact-logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path data-icon="discord"/></svg></div>
+          <div class="contact-body">
+            <h3>Contattami</h3>
+            <p>Hai bisogno di assistenza, vuoi collaborare o vuoi richiedere un servizio? Apri un ticket sul mio server Discord e ti risponderò appena possibile.</p>
+            <div class="btn-row">
+              <a class="btn btn-primary btn-lg" id="ticketBtn" data-ticket href="https://discord.gg/8SNb5z3z5" target="_blank" rel="noopener noreferrer">APRI UN TICKET</a>
+              <a class="btn btn-ghost btn-lg" data-link="server" href="https://discord.gg/8SNb5z3z5" target="_blank" rel="noopener noreferrer">VISITA IL SERVER</a>
+            </div>
+          </div>
+          <ol class="steps" aria-label="Come aprire un ticket">
+            <li><b>Entra</b> nel mio server Discord.</li>
+            <li>Vai nel canale <b data-ticket-channel>#ticket</b>.</li>
+            <li>Premi il pulsante <b>Apri Ticket</b>.</li>
+            <li>Il bot crea un canale privato: io o lo staff ti rispondiamo lì.</li>
+          </ol>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">AURAMEN<span>_</span> <small>UNIVERSE</small></p>
+      <p class="footer-copy">© <span id="year">2026</span> auramen_ · tutti i diritti riservati</p>
+      <button class="cookie-link" type="button" id="cookieCorner" aria-label="Apri preferenze cookie">🍪 Cookie</button>
+    </div>
+  </footer>
+
+  <!-- MODAL: PC -->
+  <div class="modal-backdrop" id="pcModal" role="dialog" aria-modal="true" aria-labelledby="pcModalTitle">
+    <div class="modal-card glass">
+      <div class="modal-head">
+        <h2 class="modal-title" id="pcModalTitle">🖥️ Che PC ho?</h2>
+        <button class="close-btn" type="button" data-close-modal aria-label="Chiudi finestra">✕</button>
+      </div>
+      <div class="spec-grid">
+        <div class="spec-item"><span class="spec-label">CPU</span><span class="spec-value">Intel Core i7 11th Gen</span></div>
+        <div class="spec-item"><span class="spec-label">GPU</span><span class="spec-value">Intel Iris Xe Graphics</span></div>
+        <div class="spec-item"><span class="spec-label">RAM</span><span class="spec-value">20 GB</span></div>
+        <div class="spec-item"><span class="spec-label">GPU dedicata</span><span class="spec-value">Nessuna</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PERIFERICHE -->
+  <div class="modal-backdrop" id="gearModal" role="dialog" aria-modal="true" aria-labelledby="gearModalTitle">
+    <div class="modal-card glass">
+      <div class="modal-head">
+        <h2 class="modal-title" id="gearModalTitle">⌨️ Periferiche</h2>
+        <button class="close-btn" type="button" data-close-modal aria-label="Chiudi finestra">✕</button>
+      </div>
+      <div class="spec-grid">
+        <div class="spec-item"><span class="spec-label">Mouse</span><span class="spec-value">Razer DeathAdder Essential</span></div>
+        <div class="spec-item"><span class="spec-label">Tastiera</span><span class="spec-value">IOPLEE 564BTR</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: COOKIE -->
+  <div class="modal-backdrop" id="cookieModal" role="dialog" aria-modal="true" aria-labelledby="cookieModalTitle">
+    <div class="modal-card glass">
+      <div class="modal-head">
+        <h2 class="modal-title" id="cookieModalTitle">Preferenze cookie</h2>
+        <button class="close-btn" type="button" data-close-modal aria-label="Chiudi finestra">✕</button>
+      </div>
+      <p class="cookie-text">Questo sito utilizza solamente tecnologie necessarie al suo funzionamento. Non utilizziamo sistemi di analisi, pubblicità o tracciamento.</p>
+      <div class="cookie-buttons">
+        <button class="btn btn-ghost btn-sm" type="button" data-cookie="necessary">Solo necessari</button>
+        <button class="btn btn-primary btn-sm" type="button" data-cookie="accepted">Salva preferenze</button>
+        <button class="btn btn-ghost btn-sm" type="button" data-close-modal>Chiudi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: COME APRIRE UN TICKET -->
+  <div class="modal-backdrop" id="ticketModal" role="dialog" aria-modal="true" aria-labelledby="ticketModalTitle">
+    <div class="modal-card glass">
+      <div class="modal-head">
+        <h2 class="modal-title" id="ticketModalTitle">Come aprire un ticket</h2>
+        <button class="close-btn" type="button" data-close-modal aria-label="Chiudi finestra">✕</button>
+      </div>
+      <p class="cookie-text">I ticket si aprono dal mio server Discord tramite il pannello del bot. Ti accompagno io:</p>
+      <ol class="steps steps-modal">
+        <li>Entra nel server con il pulsante qui sotto (se non ci sei già).</li>
+        <li>Cerca il canale <b data-ticket-channel>#ticket</b>.</li>
+        <li>Premi <b>Apri Ticket</b>: verrà creato un canale privato solo per te e lo staff.</li>
+      </ol>
+      <div class="cookie-buttons">
+        <a class="btn btn-primary" data-link="server" href="https://discord.gg/8SNb5z3z5" target="_blank" rel="noopener noreferrer">Vai al server Discord</a>
+        <button class="btn btn-ghost" type="button" data-close-modal>Chiudi</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="assets/vendor/skinview3d.bundle.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/skin.js" defer></script>
+</body>
+</html>
