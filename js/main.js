@@ -7,6 +7,7 @@
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const lite = reduceMotion || (navigator.connection && navigator.connection.saveData);
 
   const isHttp = (u) => typeof u === "string" && /^https?:\/\//i.test(u.trim());
   const get = (path) => path.split(".").reduce((o, k) => (o ? o[k] : undefined), cfg);
@@ -29,8 +30,11 @@
   $$("[data-link]").forEach((el) => {
     const key = el.dataset.link;
     if (key === "server") return setLink(el, serverUrl);
+    if (key.startsWith("community.")) {
+      const communityName = key.slice("community.".length);
+      return setLink(el, (cfg.COMMUNITIES || {})[communityName], { disabledLabel: "Link da configurare" });
+    }
     const url = get(key);
-    if (key.startsWith("community.")) return setLink(el, url, { disabledLabel: "Link da configurare" });
     setLink(el, url);
   });
 
@@ -110,7 +114,7 @@
   function enterSite() {
     enterOverlay.classList.add("hidden");
     bgVideo.muted = false; bgVideo.volume = parseFloat(volumeRange.value);
-    bgVideo.play().catch((err) => console.warn("Errore play video:", err));
+    if (!lite) bgVideo.play().catch((err) => console.warn("Errore play video:", err));
   }
   enterOverlay.addEventListener("click", enterSite);
   enterOverlay.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); enterSite(); } });
@@ -122,13 +126,10 @@
   bgVideo.addEventListener("canplay", () => bgVideo.classList.remove("loading"));
   bgVideo.addEventListener("error", () => { bgVideo.classList.remove("loading"); bgVideo.style.display = "none"; });
   if (bgVideo.readyState >= 3) bgVideo.classList.remove("loading");
-  // Il video di sfondo resta attivo anche con Risparmio dati / Movimento ridotto.
-  // Parte silenzioso in autoplay e l’audio viene attivato solo su richiesta.
-  bgVideo.muted = true;
-  bgVideo.playsInline = true;
-  bgVideo.play().catch((err) => console.warn("Autoplay video non riuscito:", err));
+  if (lite) { bgVideo.removeAttribute("autoplay"); bgVideo.pause(); bgVideo.classList.remove("loading"); }
   // Risparmio batteria/FPS: pausa il video quando la scheda è nascosta
   document.addEventListener("visibilitychange", () => {
+    if (lite) return;
     if (document.hidden) bgVideo.pause(); else if (enterOverlay.classList.contains("hidden") || bgVideo.muted) bgVideo.play().catch(() => {});
   });
 
@@ -156,9 +157,17 @@
 
   /* ---------- Scroll reveal ---------- */
   if ("IntersectionObserver" in window && !reduceMotion) {
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
-    $$(".reveal").forEach((el) => io.observe(el));
-  } else { $$(".reveal").forEach((el) => el.classList.add("in")); }
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        // Aggiunge la classe quando l'elemento entra nella vista e la rimuove
+        // quando esce: l'animazione si ripete sia scendendo sia risalendo.
+        entry.target.classList.toggle("in", entry.isIntersecting);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    $$(".reveal").forEach((el) => revealObserver.observe(el));
+  } else {
+    $$(".reveal").forEach((el) => el.classList.add("in"));
+  }
 
   /* ---------- Luce che segue il cursore (solo mouse, solo elementi visibili) ---------- */
   if (finePointer && !reduceMotion) {

@@ -360,3 +360,26 @@ a.cat-item:hover { border-color: rgba(192,132,252,.6); transform: translateX(3px
 .mc-cats .cat-card:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 0; }
 
 .community-logo img { width: 72px; height: 72px; object-fit: contain; border-radius: 20px; }
+
+
+/* ---------- AURAMEN: reveal ripetibile e navigazione ---------- */
+@media (min-width: 1025px) {
+  #community .grid-2 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+#community .community-card { min-width: 0; }
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0) scale(.99);
+  transition:
+    opacity .65s var(--ease) var(--d, 0ms),
+    transform .65s var(--ease) var(--d, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.in { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+.nav-links a { transition: color .22s ease, background .22s ease, box-shadow .22s ease, transform .22s ease; }
+.nav-links a:hover { transform: translateY(-1px); }
+.nav-links a.active { transform: translateY(-1px); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .nav-links a { transition: none; transform: none; }
+}

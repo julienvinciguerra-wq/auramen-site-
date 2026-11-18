@@ -19,19 +19,23 @@ window.AURAMEN_CONFIG = {
   MINECRAFT_SKIN_PNG: 'assets/skins/auramen.png',
   MINECRAFT_SKIN_MODEL: 'auto-detect', // 'default' (Steve, braccia larghe) | 'slim' (Alex) | 'auto-detect'
 
-
-  /* --- Discord --- */
+  /* --- Discord ------------------------------------------------------------ */
+  // Invito al tuo server (già presente nel sito originale).
   DISCORD_SERVER_URL: 'https://discord.gg/vV7pWrFhv',
+  // Link al canale del pannello ticket, formato:
+  //   https://discord.com/channels/ID_SERVER/ID_CANALE_PANNELLO
+  // (Discord: tasto destro sul canale > "Copia link canale"; serve la Modalità sviluppatore).
+  // Se vuoto, "APRI UN TICKET" mostra le istruzioni e porta all'invito del server.
   DISCORD_TICKET_URL: '',
+  // Nome del canale del pannello, mostrato nelle istruzioni.
   DISCORD_TICKET_CHANNEL_NAME: '#ticket',
 
-  /* --- Community --- */
+  /* --- Community (link di invito: da inserire) ------------------------------ */
   COMMUNITIES: {
     carpyy: 'https://discord.gg/Carpyy',
     barcone: 'https://discord.gg/yTY2dat3J',
     auramen: 'https://discord.gg/vV7pWrFhv'
   },
-
 
   /* --- Social ------------------------------------------------------------- */
   SOCIAL: {
