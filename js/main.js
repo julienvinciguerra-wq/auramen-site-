@@ -1,4 +1,4 @@
-/* AURAMEN UNIVERSE 2.0 — logica del sito (nessuna dipendenza). */
+﻿/* AURAMEN UNIVERSE 2.0 â€” logica del sito (nessuna dipendenza). */
 (function () {
   "use strict";
   const cfg = window.AURAMEN_CONFIG || {};
@@ -55,7 +55,7 @@
   async function refreshDiscordProfile() {
     if (!discordApiUrl || !discordAvatar || document.hidden) return;
     try {
-      const response = await fetch(discordApiUrl.replace(/\\/$/, "") + "/api/discord-profile", {
+      const response = await fetch(discordApiUrl.replace(/\/$/, "") + "/api/discord-profile", {
         method: "GET",
         headers: { Accept: "application/json" },
         cache: "no-store"
@@ -243,7 +243,7 @@
   bgVideo.addEventListener("error", () => { bgVideo.classList.remove("loading"); bgVideo.style.display = "none"; });
   if (bgVideo.readyState >= 3) bgVideo.classList.remove("loading");
   if (lite) { bgVideo.removeAttribute("autoplay"); bgVideo.pause(); bgVideo.classList.remove("loading"); }
-  // Risparmio batteria/FPS: pausa il video quando la scheda è nascosta
+  // Risparmio batteria/FPS: pausa il video quando la scheda Ã¨ nascosta
   document.addEventListener("visibilitychange", () => {
     if (lite) return;
     if (document.hidden) bgVideo.pause(); else if (enterOverlay.classList.contains("hidden") || bgVideo.muted) bgVideo.play().catch(() => {});
@@ -330,3 +330,4 @@
     closeModal("cookieModal");
   }));
 })();
+
