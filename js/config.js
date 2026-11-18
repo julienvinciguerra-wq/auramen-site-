@@ -22,6 +22,8 @@ window.AURAMEN_CONFIG = {
   /* --- Discord ------------------------------------------------------------ */
   // Invito al tuo server (già presente nel sito originale).
   DISCORD_SERVER_URL: 'https://discord.gg/vV7pWrFhv',
+  // URL pubblico del servizio API del bot (da impostare dopo il deploy del bot).
+  DISCORD_PROFILE_API_URL: '',
   // Link al canale del pannello ticket, formato:
   //   https://discord.com/channels/ID_SERVER/ID_CANALE_PANNELLO
   // (Discord: tasto destro sul canale > "Copia link canale"; serve la Modalità sviluppatore).
