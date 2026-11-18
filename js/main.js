@@ -161,8 +161,18 @@
       if (!response.ok) throw new Error("HTTP " + response.status);
       const data = await response.json();
       serverCounters.replaceChildren();
-      (Array.isArray(data.servers) ? data.servers : []).forEach((server) => {
-        if (!server || typeof server.name !== "string") return;
+      const priorityServers = ["carpy", "famiglia croccante", "barcone di dom1nck"];
+      const servers = (Array.isArray(data.servers) ? data.servers : [])
+        .filter((server) => server && typeof server.name === "string")
+        .sort((a, b) => {
+          const rank = (name) => {
+            const normalized = name.toLocaleLowerCase("it-IT");
+            const index = priorityServers.findIndex((target) => normalized.includes(target));
+            return index === -1 ? priorityServers.length : index;
+          };
+          return rank(a.name) - rank(b.name) || a.name.localeCompare(b.name, "it");
+        });
+      servers.forEach((server) => {
         const item = document.createElement("div");
         item.className = "server-counter-item";
         const name = document.createElement("span");
