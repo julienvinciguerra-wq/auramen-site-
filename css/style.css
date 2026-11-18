@@ -40,7 +40,7 @@ ul, ol { list-style: none; }
 .container { width: min(1180px, 100% - 40px); margin-inline: auto; }
 
 /* ---------- Sfondo ---------- */
-.video-bg { position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; z-index: -4; opacity: 1; transition: opacity 1s; transform: scale(1.55); /* ritaglia i margini neri incorporati nel video verticale */ }
+.video-bg { position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -4; opacity: 1; transition: opacity 1s; transform: scale(1.16); /* elimina i bordi neri presenti nel file video */ }
 .video-bg.loading { opacity: 0; }
 .video-overlay { position: fixed; inset: 0; z-index: -3; background: linear-gradient(180deg, rgba(5,3,10,.55), rgba(8,4,16,.72) 60%, rgba(5,3,10,.86)); }
 .aurora { position: fixed; inset: -20%; z-index: -2; pointer-events: none; opacity: .55;
